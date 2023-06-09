@@ -22,7 +22,7 @@ const discountLocations = [
   { id: 3, name: 'Carrefour', coordinate: { latitude: 32.091100, longitude: 34.776011 } },
 ];
 
-const WalkingRoute = () => {
+export const WalkingRouteScreen = () => {
   const [selectedDiscounts, setSelectedDiscounts] = useState([]);
 
   const toggleDiscountSelection = (discountId) => {
@@ -788,7 +788,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WalkingRoute;
 
 function getDiscountIcon(discountId) {
   switch (discountId) {
