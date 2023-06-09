@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View, Text } from "react-native";
 import { Color, Border, FontSize, FontFamily, Padding } from "../GlobalStyles";
 
-const Profile = () => {
+export const ProfileScreen = () => {
   return (
     <View style={styles.profile}>
       <View style={[styles.tabBar, styles.tabLayout]}>
@@ -590,4 +590,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
