@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
-const InviteFriends = () => {
+export const TrophiesScreen = () => {
   return (
     <View style={styles.inviteFriends}>
       <View style={styles.tabBar}>
@@ -455,4 +455,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InviteFriends;
