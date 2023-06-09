@@ -3,7 +3,7 @@ import { Image } from "expo-image";
 import { StyleSheet, View, Text } from "react-native";
 import { Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
-const HomeScreen = () => {
+export const MainScreen = () => {
   return (
     <View style={styles.homeScreen}>
       <View style={[styles.tabBar, styles.tabBarLayout]}>
@@ -611,4 +611,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
