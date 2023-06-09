@@ -1,76 +1,97 @@
-const Stack = createNativeStackNavigator();
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import FrameScreen from "./screens/FrameScreen";
-import WalkingRoute from "./screens/WalkingRoute";
-import InviteFriends from "./screens/InviteFriends";
-import Profile from "./screens/Profile";
-import SendLink from "./screens/SendLink";
-import MainScreen from "./screens/MainScreen";
+import * as React from 'react';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image as ExpoImage } from 'expo-image';
+import { StyleSheet } from 'react-native';
+import {
+  Color,
+  Border,
+  Padding,
+  FontFamily,
+  FontSize,
+} from './GlobalStyles';
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { useNavigate } from 'react-router-dom';
 
-const App = () => {
-  const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
-  const [fontsLoaded, error] = useFonts({
-    Inter_extralight: require("./assets/fonts/Inter_extralight.ttf"),
-    Inter_regular: require("./assets/fonts/Inter_regular.ttf"),
-    Inter_medium: require("./assets/fonts/Inter_medium.ttf"),
-    Inter_semibold: require("./assets/fonts/Inter_semibold.ttf"),
-    Inter_bold: require("./assets/fonts/Inter_bold.ttf"),
-    Montserrat_light: require("./assets/fonts/Montserrat_light.ttf"),
-    Montserrat_regular: require("./assets/fonts/Montserrat_regular.ttf"),
-    Montserrat_medium: require("./assets/fonts/Montserrat_medium.ttf"),
-    Montserrat_semibold: require("./assets/fonts/Montserrat_semibold.ttf"),
-    Montserrat_bold: require("./assets/fonts/Montserrat_bold.ttf"),
-    Montserrat_thin_italic: require("./assets/fonts/Montserrat_thin_italic.ttf"),
-  });
+import {MainScreen} from './screens/MainScreen';
+import {WalkingRouteScreen} from './screens/WalkingRoute';
+import {TrophiesScreen} from './screens/InviteFriends';
+import {ProfileScreen} from './screens/Profile';
 
-  if (!fontsLoaded && !error) {
-    return null;
-  }
 
+// import WalkingRouteScreen from 'WalkingRoute.js';
+
+// function HomeScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Home Screen</Text>
+//     </View>
+//   );
+// }
+
+
+
+// function ProfileScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Profile Screen</Text>
+//     </View>
+//   );
+// }
+
+// function TrophiesScreen() {
+//   return (
+//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//       <Text>Trophies Screen</Text>
+//     </View>
+//   );
+// }
+
+// function WalkingRouteScreen() {
+//   navigation.navigate('WalkingRoute');
+// }
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
   return (
-    <>
-      <NavigationContainer>
-        {hideSplashScreen ? (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen
-              name="Frame1000001252"
-              component={WalkingRoute}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="WalkingRoute"
-              component={WalkingRoute}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="InviteFriends"
-              component={InviteFriends}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Profile"
-              component={Profile}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SendLink"
-              component={SendLink}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="MainScreen"
-              component={MainScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        ) : null}
-      </NavigationContainer>
-    </>
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = require('./assets/materialsymbolshomeoutline.png');
+          } else if (route.name === 'WalkingRoute') {
+            iconName = require('./assets/fasolidwalking1.png');
+          } else if (route.name === 'Profile') {
+            iconName = require('./assets/iconamoonprofilefill.png');
+          } else if (route.name === 'Trophies') {
+            iconName = require('./assets/trophy.png');
+          }
+
+          return <Image source={iconName} style={{ tintColor: color, width: size, height: size }} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: '#e91e63',
+        inactiveTintColor: 'gray',
+      }}
+    >
+      <Tab.Screen name="Home" component={MainScreen} />
+      <Tab.Screen name="WalkingRoute" component={WalkingRouteScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Trophies" component={TrophiesScreen} />
+    </Tab.Navigator>
   );
-};
-export default App;
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
